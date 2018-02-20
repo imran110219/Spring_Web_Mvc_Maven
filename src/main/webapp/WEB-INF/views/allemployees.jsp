@@ -35,5 +35,6 @@
 </table>
 <br/>
 <a href="<c:url value='/new' />">Add New Employee</a>
+<a href="<c:url value='/organization' />">Organization List</a>
 </body>
 </html>
