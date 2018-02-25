@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.sadman.springmvc.model.Employee;
 import com.sadman.springmvc.service.EmployeeService;
 
+import com.sadman.springmvc.model.Organization;
+
 /**
  * Created by Sadman on 2/15/2018.
  */
@@ -57,6 +59,17 @@ public class AppController {
     }
 
     /*
+     * This method will provide the medium to add a new organization.
+     */
+    @RequestMapping(value = { "/organization" }, method = RequestMethod.GET)
+    public String newOrganization(ModelMap model) {
+        Organization organization = new Organization();
+        model.addAttribute("organization", organization);
+        model.addAttribute("edit", false);
+        return "addorganization";
+    }
+
+    /*
      * This method will be called on form submission, handling POST request for
      * saving employee in database. It also validates the user input
      */
@@ -88,6 +101,37 @@ public class AppController {
         return "success";
     }
 
+    /*
+     * This method will be called on form submission, handling POST request for
+     * saving employee in database. It also validates the user input
+     */
+    @RequestMapping(value = { "/organization" }, method = RequestMethod.POST)
+    public String saveOrganization(@Valid Organization organization, BindingResult result,
+                               ModelMap model) {
+
+        if (result.hasErrors()) {
+            return "addorganization";
+        }
+
+        /*
+         * Preferred way to achieve uniqueness of field [ssn] should be implementing custom @Unique annotation
+         * and applying it on field [ssn] of Model class [Employee].
+         *
+         * Below mentioned peace of code [if block] is to demonstrate that you can fill custom errors outside the validation
+         * framework as well while still using internationalized messages.
+         *
+         */
+//        if(!service.isEmployeeSsnUnique(employee.getId(), employee.getSsn())){
+//            FieldError ssnError =new FieldError("employee","ssn",messageSource.getMessage("non.unique.ssn", new String[]{employee.getSsn()}, Locale.getDefault()));
+//            result.addError(ssnError);
+//            return "registration";
+//        }
+
+        service.saveOrganization(organization);
+
+        model.addAttribute("success", "Employee " + employee.getName() + " registered successfully");
+        return "success";
+    }
 
     /*
      * This method will provide the medium to update an existing employee.
