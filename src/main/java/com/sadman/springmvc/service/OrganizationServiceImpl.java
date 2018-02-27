@@ -1,6 +1,6 @@
 package com.sadman.springmvc.service;
 
-import com.sadman.springmvc.dao.EmployeeDao;
+import com.sadman.springmvc.dao.OrganizationDao;
 import com.sadman.springmvc.model.Organization;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,14 +31,14 @@ public class OrganizationServiceImpl implements OrganizationService {
      * It will be updated in db once transaction ends.
      */
     public void updateOrganization(Organization organization) {
-        Organization entity = dao.findById(organization.getId());
+        Organization entity = dao.findById(organization.getOrganizationId());
         if(entity!=null){
-            entity.setOrganizatioName(Organization.getOrganizatioName());
+            entity.setOrganizatioName(organization.getOrganizatioName());
         }
     }
 
-    public void deleteEmployeeById(int organizationId) {
-        dao.deleteEmployeeById(organizationId);
+    public void deleteOrganizationById(int organizationId) {
+        dao.deleteOrganizationById(organizationId);
     }
 
     public List<Organization> findAllOrganizations() {
