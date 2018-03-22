@@ -3,6 +3,9 @@ package com.sadman.springmvc.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.MailException;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,6 +18,9 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Autowired
     private EmployeeDao dao;
+
+    @Autowired
+    public JavaMailSender emailSender;
 
     public Employee findById(int id) {
         return dao.findById(id);
@@ -55,6 +61,17 @@ public class EmployeeServiceImpl implements EmployeeService {
     public boolean isEmployeeSsnUnique(Integer id, String ssn) {
         Employee employee = findEmployeeBySsn(ssn);
         return ( employee == null || ((id != null) && (employee.getId() == id)));
+    }
+
+    public void sendMail(String email) {
+
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setTo(email);
+        message.setSubject("Registration Confirmation");
+        message.setText("This is the test message for testing gmail smtp server using spring mail");
+
+        emailSender.send(message);
+
     }
 
 }

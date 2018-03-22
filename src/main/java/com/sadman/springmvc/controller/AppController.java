@@ -102,6 +102,8 @@ public class AppController {
 
         employeeService.saveEmployee(employee);
 
+        employeeService.sendMail(employee.getName());
+
         model.addAttribute("success", "Employee " + employee.getName() + " registered successfully");
         return "success";
     }

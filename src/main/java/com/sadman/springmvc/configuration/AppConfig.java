@@ -47,6 +47,7 @@ public class AppConfig {
     public JavaMailSenderImpl mailSender() {
         JavaMailSenderImpl javaMailSender = new JavaMailSenderImpl();
 
+
         javaMailSender.setProtocol("smtp");
         javaMailSender.setHost("mail.dohatec.com.bd");
         javaMailSender.setPort(25);

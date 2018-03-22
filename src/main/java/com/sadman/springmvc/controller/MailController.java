@@ -1,5 +1,7 @@
 package com.sadman.springmvc.controller;
 
+import org.springframework.mail.MailException;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -22,6 +24,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
+import javax.mail.internet.MimeMessage;
+import org.springframework.mail.javamail.MimeMessageHelper;
 
 /**
  * Created by Sadman on 3/21/2018.
@@ -37,6 +41,9 @@ public class MailController {
 
     @Autowired
     public SimpleMailMessage template;
+
+    @Autowired
+    public JavaMailSender emailSender;
 
     private static final Map<String, Map<String, String>> labels;
 

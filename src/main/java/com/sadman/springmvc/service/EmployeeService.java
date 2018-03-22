@@ -21,4 +21,6 @@ public interface EmployeeService {
 
     boolean isEmployeeSsnUnique(Integer id, String ssn);
 
+    void sendMail(String email);
+
 }
