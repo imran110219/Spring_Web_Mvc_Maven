@@ -1,7 +1,9 @@
 package com.sadman.springmvc.service;
 
 import java.util.List;
+import java.util.UUID;
 
+import com.sadman.springmvc.dao.VerificationTokenDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailException;
 import org.springframework.mail.SimpleMailMessage;
@@ -10,7 +12,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.sadman.springmvc.dao.EmployeeDao;
+
 import com.sadman.springmvc.model.Employee;
+import com.sadman.springmvc.model.VerificationToken;
 
 @Transactional
 @Service("EmployeeService")
@@ -21,6 +25,12 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Autowired
     public JavaMailSender emailSender;
+
+    @Autowired
+    private VerificationTokenDao tokenDao;
+
+
+
 
     public Employee findById(int id) {
         return dao.findById(id);
@@ -63,15 +73,37 @@ public class EmployeeServiceImpl implements EmployeeService {
         return ( employee == null || ((id != null) && (employee.getId() == id)));
     }
 
-    public void sendMail(String email) {
+    public void sendMail(Employee employee, String verificationToken) {
 
         SimpleMailMessage message = new SimpleMailMessage();
-        message.setTo(email);
+        VerificationToken vToken = tokenDao.findByUser(employee);
+
+        message.setTo(employee.getName());
         message.setSubject("Registration Confirmation");
-        message.setText("This is the test message for testing gmail smtp server using spring mail");
+        message.setText("This is the test message for testing gmail smtp server using spring mail " + verificationToken);
 
         emailSender.send(message);
 
     }
+
+    @Override
+    public VerificationToken getVerificationToken(final Integer VerificationToken) {
+        return tokenDao.findByToken(VerificationToken);
+    }
+
+    @Override
+    public void createVerificationTokenForUser(final Employee employee, final String token) {
+        final VerificationToken myToken = new VerificationToken(token, employee);
+        tokenDao.saveToken(myToken);
+    }
+
+    @Override
+    public void generateVerificationToken(final Employee employee, final String verificationToken) {
+        VerificationToken vToken = new VerificationToken();
+        vToken.setEmployee(employee);
+        vToken.updateToken(verificationToken);
+        tokenDao.saveToken(vToken);
+    }
+
 
 }

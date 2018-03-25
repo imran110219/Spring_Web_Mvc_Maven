@@ -2,6 +2,7 @@ package com.sadman.springmvc.controller;
 
 import java.util.List;
 import java.util.Locale;
+import java.util.UUID;
 
 import javax.validation.Valid;
 
@@ -101,8 +102,9 @@ public class AppController {
         }
 
         employeeService.saveEmployee(employee);
-
-        employeeService.sendMail(employee.getName());
+        String verificationToken = UUID.randomUUID().toString();
+        employeeService.generateVerificationToken(employee, verificationToken);
+        employeeService.sendMail(employee, verificationToken);
 
         model.addAttribute("success", "Employee " + employee.getName() + " registered successfully");
         return "success";
