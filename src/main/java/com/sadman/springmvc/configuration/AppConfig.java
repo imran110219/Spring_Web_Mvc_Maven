@@ -1,5 +1,6 @@
 package com.sadman.springmvc.configuration;
 
+import com.sun.deploy.model.LocalApplicationProperties;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -12,6 +13,7 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
 import org.springframework.mail.SimpleMailMessage;
+
 
 /**
  * Created by Sadman on 2/15/2018.
@@ -46,7 +48,6 @@ public class AppConfig {
     @Bean
     public JavaMailSenderImpl mailSender() {
         JavaMailSenderImpl javaMailSender = new JavaMailSenderImpl();
-
 
         javaMailSender.setProtocol("smtp");
         javaMailSender.setHost("mail.dohatec.com.bd");

@@ -79,6 +79,8 @@ public class EmployeeServiceImpl implements EmployeeService {
         VerificationToken vToken = tokenDao.findByUser(employee);
 
         message.setTo(employee.getName());
+//        message.setFrom("sadman@assassin.com");
+        message.setReplyTo("sadman@assassin.com");
         message.setSubject("Registration Confirmation");
         message.setText("This is the test message for testing gmail smtp server using spring mail " + verificationToken);
 
