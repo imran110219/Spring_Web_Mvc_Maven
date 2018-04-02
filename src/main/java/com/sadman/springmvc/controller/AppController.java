@@ -56,12 +56,20 @@ public class AppController {
     /*
      * This method will provide the medium to add a new employee.
      */
-    @RequestMapping(value = { "/new" }, method = RequestMethod.GET)
+//    @RequestMapping(value = { "/new" }, method = RequestMethod.GET)
+//    public String newEmployee(ModelMap model) {
+//        Employee employee = new Employee();
+//        model.addAttribute("employee", employee);
+//        model.addAttribute("edit", false);
+//        return "registration";
+//    }
+
+    @RequestMapping(value = { "/new1" }, method = RequestMethod.GET)
     public String newEmployee(ModelMap model) {
         Employee employee = new Employee();
         model.addAttribute("employee", employee);
         model.addAttribute("edit", false);
-        return "registration";
+        return "registration_new";
     }
 
     /*

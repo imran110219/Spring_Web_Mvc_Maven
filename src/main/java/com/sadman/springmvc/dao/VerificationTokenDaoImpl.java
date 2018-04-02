@@ -9,10 +9,10 @@ import org.springframework.stereotype.Repository;
  */
 @Repository("VerificationTokenDao")
 public class VerificationTokenDaoImpl extends AbstractDao<Integer,VerificationToken> implements VerificationTokenDao {
+
     @Override
     public VerificationToken findByToken(Integer tokenId) {
         return getByKey(tokenId);
-
     }
 
     @Override

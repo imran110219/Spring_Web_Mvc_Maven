@@ -164,7 +164,6 @@
             <version>${dbunit.version}</version>
             <scope>test</scope>
         </dependency>
-
     </dependencies>
 
     <build>

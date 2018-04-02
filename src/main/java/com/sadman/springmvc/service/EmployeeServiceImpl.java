@@ -76,7 +76,6 @@ public class EmployeeServiceImpl implements EmployeeService {
     public void sendMail(Employee employee, String verificationToken) {
 
         SimpleMailMessage message = new SimpleMailMessage();
-        VerificationToken vToken = tokenDao.findByUser(employee);
 
         message.setTo(employee.getName());
 //        message.setFrom("sadman@assassin.com");
@@ -106,6 +105,5 @@ public class EmployeeServiceImpl implements EmployeeService {
         vToken.updateToken(verificationToken);
         tokenDao.saveToken(vToken);
     }
-
 
 }
