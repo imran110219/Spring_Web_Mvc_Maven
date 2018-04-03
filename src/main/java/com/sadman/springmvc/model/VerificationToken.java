@@ -37,6 +37,7 @@ public class VerificationToken {
 
     @Id
     @Column(name = "verificationTokenId", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int getVerificationTokenId() {
         return verificationTokenId;
     }

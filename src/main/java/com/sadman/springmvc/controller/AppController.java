@@ -64,7 +64,7 @@ public class AppController {
 //        return "registration";
 //    }
 
-    @RequestMapping(value = { "/new1" }, method = RequestMethod.GET)
+    @RequestMapping(value = { "/registration" }, method = RequestMethod.GET)
     public String newEmployee(ModelMap model) {
         Employee employee = new Employee();
         model.addAttribute("employee", employee);
@@ -87,12 +87,43 @@ public class AppController {
      * This method will be called on form submission, handling POST request for
      * saving employee in database. It also validates the user input
      */
-    @RequestMapping(value = { "/new" }, method = RequestMethod.POST)
+//    @RequestMapping(value = { "/new" }, method = RequestMethod.POST)
+//    public String saveEmployee(@Valid Employee employee, BindingResult result,
+//                               ModelMap model) {
+//
+//        if (result.hasErrors()) {
+//            return "registration";
+//        }
+//
+//        /*
+//         * Preferred way to achieve uniqueness of field [ssn] should be implementing custom @Unique annotation
+//         * and applying it on field [ssn] of Model class [Employee].
+//         *
+//         * Below mentioned peace of code [if block] is to demonstrate that you can fill custom errors outside the validation
+//         * framework as well while still using internationalized messages.
+//         *
+//         */
+//        if(!employeeService.isEmployeeSsnUnique(employee.getId(), employee.getSsn())){
+//            FieldError ssnError =new FieldError("employee","ssn",messageSource.getMessage("non.unique.ssn", new String[]{employee.getSsn()}, Locale.getDefault()));
+//            result.addError(ssnError);
+//            return "registration";
+//        }
+//
+//        employeeService.saveEmployee(employee);
+//        String verificationToken = UUID.randomUUID().toString();
+//        employeeService.generateVerificationToken(employee, verificationToken);
+//        employeeService.sendMail(employee, verificationToken);
+//
+//        model.addAttribute("success", "Employee " + employee.getName() + " registered successfully");
+//        return "success";
+//    }
+
+    @RequestMapping(value = { "/registration" }, method = RequestMethod.POST)
     public String saveEmployee(@Valid Employee employee, BindingResult result,
                                ModelMap model) {
 
         if (result.hasErrors()) {
-            return "registration";
+            return "registration_new";
         }
 
         /*
@@ -106,7 +137,7 @@ public class AppController {
         if(!employeeService.isEmployeeSsnUnique(employee.getId(), employee.getSsn())){
             FieldError ssnError =new FieldError("employee","ssn",messageSource.getMessage("non.unique.ssn", new String[]{employee.getSsn()}, Locale.getDefault()));
             result.addError(ssnError);
-            return "registration";
+            return "registration_new";
         }
 
         employeeService.saveEmployee(employee);
