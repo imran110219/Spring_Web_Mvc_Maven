@@ -24,7 +24,7 @@ const Pagination = (props) => {
     </nav>;
 }
 
-Pagination.PropTypes = {
+Pagination.propTypes = {
     itemsCount: PropTypes.number.isRequired, 
     pageSize: PropTypes.number.isRequired, 
     currentPage: PropTypes.number.isRequired, 
